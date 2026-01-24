@@ -31,7 +31,7 @@ def pick_sky_and_ground(sky, ground, sky_mode, ground_mode, sky_allowness, groun
     elif sky_mode == "POINT" and ground_mode != "POINT":
         ground_allowness = ground_allowness if ground_allowness <= len(ground) else len(ground)
         ground = find_nearest_points_in_array(ground, sky, ground_allowness)[random.randint(0, ground_allowness-1)]
-    #Object-to-Object
+    #Object-to-Point
     elif sky_mode != "POINT" and ground_mode == "POINT":
         sky_allowness = sky_allowness if sky_allowness <= len(sky) else len(sky)
         sky = find_nearest_points_in_array(sky, ground, sky_allowness)[random.randint(0, sky_allowness-1)]
@@ -742,7 +742,7 @@ class LT_PT_Properties(bpy.types.PropertyGroup):
         name = "Duration",
         description = "Duration of the first strike (when lightning is glowing)",
         default = 10,
-        min = 1
+        min = 3
     )
     count_of_strikes : IntProperty(
         name = "Count of strikes",
@@ -755,6 +755,7 @@ class LT_PT_Properties(bpy.types.PropertyGroup):
         description = "Size of every step",
         default = 1,
         subtype='DISTANCE',
+        min = 0.000001
         step = 0.01,
         precision = 6
     )
@@ -782,9 +783,9 @@ class LT_PT_Properties(bpy.types.PropertyGroup):
     curve_resolution: IntProperty(
         name = "Curve Resolution",
         description = "Resolution of curve in these bevel option",
-        min = 4,
+        min = 1,
         max = 100,
-        default = 1
+        default = 4
     )
     curve_thickness: FloatProperty(
         name = "Brightness",
@@ -919,4 +920,5 @@ def unregister():
 if __name__ == "__main__":
     register()  
     
+
 #     :3
